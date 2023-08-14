@@ -1,0 +1,56 @@
+body {
+    background-color:salmon;
+    color: #360000;
+}
+ h1 {
+        font-family: Arial, sans-serif;
+        font-size: 24px;
+        font-weight: bold;
+      }
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+      
+      li {
+        margin-bottom: 5px;
+      }
+      
+      /* Agregar viñetas personalizadas */
+      .custom-bullet {
+        content: "\2022";
+        margin-right: 5px;
+      }
+      .video {
+        width: 80%; /* Ajustar el ancho según lo desees */
+        max-width: 900px; /* Establecer un ancho máximo para evitar que el video sea demasiado grande */
+        height: 550px; /* La altura se ajustará automáticamente para mantener la proporción original */
+      }
+      .center-content {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+      }
+      .column {
+        float: left;
+        width: 50%;
+        padding: 20px;
+        box-sizing: border-box;
+      }
+      button {
+        background-color: #f3afd5;
+        color: #a1244e;
+        padding: 10px 10px;
+        border-radius: 4px;
+        text-decoration: none;
+        transition: background-color 0.3s ease-in-out;
+      }
+      
+      .button:hover {
+        background-color: #ffb1f9;
+      }
+      .box {
+        border: 1px solid #ff3098;
+        border-radius: 5px;
+      }      
