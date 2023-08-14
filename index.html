@@ -2,27 +2,73 @@
 <html>
 
 <head>
-    <title>Criar Coleção e Adicionar Dado no Firestore</title>
-    <link rel="stylesheet" type="text/css" href="style.css">
+    <title>Enviar e Ler Dados do Firebase</title>
+    <!-- Adicione as referências ao Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-firestore.js"></script>
 </head>
 
 <body>
-    <h1>Adicionar Dados ao Firestore</h1>
+    <h1>Enviar e Ler Dados do Firebase</h1>
+    
+    <!-- Formulário para enviar dados -->
     <form id="meuFormulario">
-        <label for="tagVideo">Tag de Vídeo do YouTube:</label>
-        <input type="text" id="tagVideo" name="tagVideo" required>
-        <button type="submit">Salvar</button>
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required>
+        <button type="submit">Enviar</button>
     </form>
+    
+    <!-- Lista para exibir dados lidos do Firebase -->
+    <ul id="dadosLidos"></ul>
 
-    <h2>Vídeos Salvos:</h2>
-    <ul id="videosSalvos"></ul>
+    <script>
+        // Configurar as credenciais do Firebase
+        var firebaseConfig = {
+            apiKey: "AIzaSyAJSo4NIN0HoIYUmUNdfH4S1N3srJL0RZc",
+  authDomain: "teste-1e387.firebaseapp.com",
+  projectId: "teste-1e387",
+  storageBucket: "teste-1e387.appspot.com",
+        };
+        
+        // Inicializar o Firebase
+        firebase.initializeApp(firebaseConfig);
+        
+        // Referenciar o Firestore
+        var db = firebase.firestore();
 
-    <!-- Adicione a biblioteca do Firebase -->
-    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/8.3.1/firebase-firestore.js"></script>
+        // Capturar o formulário e enviar os dados para o Firebase
+        document.getElementById("meuFormulario").addEventListener("submit", function (event) {
+            event.preventDefault();
+            var nome = document.getElementById("nome").value;
 
-    <!-- Incluir o script JavaScript -->
-    <script src="java.js"></script>
+            // Adicionar o nome ao Firestore
+            db.collection("pessoas").add({
+                nome: nome
+            })
+            .then(function () {
+                alert("Dados enviados com sucesso!");
+                document.getElementById("meuFormulario").reset();
+            })
+            .catch(function (error) {
+                console.error("Erro ao enviar dados: ", error);
+            });
+        });
+
+        // Ler os dados do Firestore e exibi-los na página
+        var listaDados = document.getElementById("dadosLidos");
+        db.collection("pessoas").get()
+            .then(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
+                    var nome = doc.data().nome;
+                    var itemLista = document.createElement("li");
+                    itemLista.textContent = nome;
+                    listaDados.appendChild(itemLista);
+                });
+            })
+            .catch(function (error) {
+                console.error("Erro ao ler dados: ", error);
+            });
+    </script>
 </body>
 
 </html>
